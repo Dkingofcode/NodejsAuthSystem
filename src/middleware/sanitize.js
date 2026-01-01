@@ -64,7 +64,7 @@ const sanitizeObject = (obj) => {
 /**
  * Express middleware to sanitize request data
  */
-export default function sqlSanitize (req, res, next)  {
+const sqlSanitize = (req, res, next) => {
   try {
     // Sanitize body
     if (req.body) {
@@ -87,4 +87,4 @@ export default function sqlSanitize (req, res, next)  {
   }
 };
 
-//module.exports = { sqlSanitize, sanitizeInput, sanitizeObject };
+module.exports = { sqlSanitize, sanitizeInput, sanitizeObject };
