@@ -43,10 +43,18 @@ process.on("SIGINT", () => gracefulShutdown("SIGINT"));
     await sequelize.authenticate();
     logInfo("Database connection established successfully.");
 
-    // Sync database (alter: true in development, false in production)
-    if (process.env.NODE_ENV !== "production") {
+    // Sync database
+    // Force sync in production if FORCE_DB_SYNC is set (first deployment)
+    // Otherwise use alter in development, skip in production
+    if (process.env.FORCE_DB_SYNC === "true") {
+      await sequelize.sync({ force: false, alter: true });
+      logInfo("Database synchronized (forced).");
+    } else if (process.env.NODE_ENV !== "production") {
       await sequelize.sync({ alter: true });
       logInfo("Database synchronized.");
+    } else {
+      await sequelize.sync({ alter: false });
+      logInfo("Database checked (no sync).");
     }
 
     // Start listening

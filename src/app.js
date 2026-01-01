@@ -5,13 +5,19 @@ const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
 const { logger } = require("./utils/logger");
 const { errorHandlerEnhanced, notFound } = require("./utils/errors");
-const { sqlSanitize } = require("./middleware/sanitize");
+//const { sqlSanitize } = require("./middleware/sanitize");
 
 // Import routes
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 
 const app = express();
+
+// Trust proxy - Required for Railway, Heroku, and other reverse proxy platforms
+// This allows express-rate-limit to get real client IPs from X-Forwarded-For header
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1); // Trust first proxy
+}
 
 // Security Middleware - Configure Helmet with CSP
 app.use(
