@@ -28,6 +28,7 @@
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
     "axios": "^1.13.2",
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.1",

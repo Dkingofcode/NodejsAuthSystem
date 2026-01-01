@@ -1,8 +1,48 @@
 const nodemailer = require("nodemailer");
 
+// Import SendGrid (if installed)
+let sgMail;
+try {
+  sgMail = require("@sendgrid/mail");
+} catch (err) {
+  // SendGrid not installed, will use nodemailer
+}
+
 // Create email transporter
 const createTransporter = () => {
-  // If no SMTP configured, use console logging for development
+  // Priority 1: Use SendGrid if configured
+  if (process.env.SENDGRID_API_KEY && sgMail) {
+    console.log('✅ Using SendGrid for email delivery');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    
+    return {
+      sendMail: async (mailOptions) => {
+        try {
+          const msg = {
+            to: mailOptions.to,
+            from: process.env.SENDGRID_FROM_EMAIL || process.env.SMTP_USER,
+            subject: mailOptions.subject,
+            text: mailOptions.text,
+            html: mailOptions.html,
+          };
+          
+          const response = await sgMail.send(msg);
+          console.log(`✅ Email sent via SendGrid to: ${mailOptions.to}`);
+          
+          return {
+            messageId: response[0].headers['x-message-id'],
+            accepted: [mailOptions.to],
+            response: 'Email sent via SendGrid'
+          };
+        } catch (error) {
+          console.error('❌ SendGrid error:', error.response?.body || error.message);
+          throw error;
+        }
+      }
+    };
+  }
+
+  // Priority 2: If no SMTP configured, use console logging for development
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
     console.log('⚠️  SMTP not configured - using console logging mode');
     return {
@@ -43,16 +83,32 @@ const createTransporter = () => {
     });
   }
 
-  // Production transporter with real SMTP
+  // Priority 3: Fall back to SMTP (Gmail, etc.)
   console.log('✅ Using real SMTP:', process.env.SMTP_HOST);
+  
+  const smtpPort = parseInt(process.env.SMTP_PORT) || 587;
+  const isSecure = smtpPort === 465; // SSL for port 465, STARTTLS for 587
+  
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT) || 587,
-    secure: false, // true for 465, false for other ports
+    port: smtpPort,
+    secure: isSecure, // true for 465 (SSL), false for 587 (STARTTLS)
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASSWORD,
     },
+    // Add timeouts and connection settings
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000,
+    socketTimeout: 10000,
+    // Add TLS options for better compatibility
+    tls: {
+      rejectUnauthorized: process.env.NODE_ENV === 'production',
+      minVersion: 'TLSv1.2'
+    },
+    // Enable debug output in development
+    debug: process.env.NODE_ENV !== 'production',
+    logger: process.env.NODE_ENV !== 'production'
   });
 };
 
