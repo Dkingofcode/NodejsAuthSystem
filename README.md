@@ -410,6 +410,71 @@ npm test
 npm run test:coverage
 ```
 
+
+## 📦 API Testing with Postman
+
+### Quick Start
+
+1. **Import the collection:**
+   - Download [`postman_collection.json`](./postman_collection.json)
+   - Open Postman → Click "Import"
+   - Select the file
+
+2. **Set up variables:**
+   - Click on the collection name
+   - Go to "Variables" tab
+   - Update `baseUrl` with your Railway URL or `http://localhost:5000`
+
+3. **Test the API:**
+   - Start with "Health Check"
+   - Then "Register User" (tokens auto-saved!)
+   - Continue with "Login", "2FA Setup", etc.
+
+### Collection Features
+
+✅ **23 API Endpoints** organized in folders
+✅ **Auto-saves JWT tokens** after login/register
+✅ **Professional documentation** for each endpoint
+✅ **Request examples** with sample data
+✅ **Test scripts** for automated token management
+
+### Example Workflow
+```bash
+1. Register User → Tokens saved automatically
+2. Get Current User → Uses saved token
+3. Setup 2FA → Get QR code
+4. Enable 2FA → Activate security
+5. Get Sessions → View active sessions
+```
+
+### Alternative: Use Online
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/your-collection-id)
+
+*Note: Replace `your-collection-id` with your actual collection ID after publishing*
+```
+
+---
+
+## 📤 **Publish to Postman (Optional but Impressive!)**
+
+### **Step 1: Publish Your Collection**
+
+1. **In Postman:**
+   - Right-click your collection
+   - Click **"Share Collection"**
+   - Click **"Get public link"**
+   - Click **"Publish collection"**
+
+2. **Choose settings:**
+   - Collection name: "User Authentication System API"
+   - Summary: "Production-grade auth API with JWT, 2FA, email verification"
+   - Custom URL (optional): `user-auth-api`
+
+3. **Copy the public link:**
+```
+   https://documenter.getpostman.com/view/your-id/collection-name
+
 ### Test files structure
 ```
 src/tests/
