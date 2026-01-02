@@ -593,3 +593,155 @@ exports.getCurrentUser = async (req, res, next) => {
     next(error);
   }
 };
+
+// Resend verification email
+exports.resendVerificationEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      throw new AppError("Email is required", 400);
+    }
+
+    // Find user
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      throw new AppError("No account found with this email", 404);
+    }
+
+    // Check if already verified
+    if (user.isEmailVerified) {
+      return res.json({
+        status: "success",
+        message: "Email is already verified",
+      });
+    }
+
+    // Generate new verification token
+    const verificationToken = user.createEmailVerificationToken();
+    await user.save({ validate: false });
+
+    // Send verification email
+    try {
+      const baseURL = process.env.BASE_URL || `http://localhost:${process.env.PORT || 5000}`;
+      const verificationURL = `${baseURL}/api/auth/verify-email/${verificationToken}`;
+      
+      await sendEmail({
+        to: user.email,
+        subject: "Verify Your Email Address",
+        html: `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6; 
+                color: #333;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+              }
+              .container {
+                background: #f9f9f9;
+                border-radius: 10px;
+                padding: 30px;
+                margin: 20px 0;
+              }
+              .header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                border-radius: 10px 10px 0 0;
+                text-align: center;
+              }
+              .content {
+                background: white;
+                padding: 30px;
+                border-radius: 0 0 10px 10px;
+              }
+              .button {
+                display: inline-block;
+                background: #667eea;
+                color: white;
+                padding: 15px 30px;
+                text-decoration: none;
+                border-radius: 5px;
+                margin: 20px 0;
+                font-weight: bold;
+              }
+              .footer {
+                text-align: center;
+                color: #666;
+                font-size: 12px;
+                margin-top: 20px;
+              }
+              .info-box {
+                background: #fff3cd;
+                border-left: 4px solid #ffc107;
+                padding: 15px;
+                margin: 20px 0;
+                border-radius: 4px;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <h1>📧 Email Verification</h1>
+              </div>
+              <div class="content">
+                <h2>Hello ${user.firstName || user.username || 'there'}!</h2>
+                <p>You requested to verify your email address for your account.</p>
+                
+                <p>Click the button below to verify your email:</p>
+                
+                <center>
+                  <a href="${verificationURL}" class="button">Verify Email Address</a>
+                </center>
+                
+                <div class="info-box">
+                  <strong>⏰ This link will expire in 24 hours</strong><br>
+                  If you didn't request this, you can safely ignore this email.
+                </div>
+                
+                <p>Or copy and paste this link into your browser:</p>
+                <p style="word-break: break-all; color: #667eea;">
+                  ${verificationURL}
+                </p>
+                
+                <p>After verification, you'll be able to access all features including Web3 capabilities!</p>
+              </div>
+              <div class="footer">
+                <p>This is an automated message, please do not reply.</p>
+                <p>&copy; ${new Date().getFullYear()} ${process.env.TWO_FACTOR_APP_NAME || 'User Auth System'}. All rights reserved.</p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `,
+        text: `
+          Hello ${user.firstName || user.username || 'there'}!
+          
+          You requested to verify your email address.
+          
+          Click this link to verify: ${verificationURL}
+          
+          This link will expire in 24 hours.
+          
+          If you didn't request this, you can safely ignore this email.
+        `,
+      });
+
+      res.json({
+        status: "success",
+        message: "Verification email sent successfully. Please check your inbox.",
+      });
+    } catch (emailError) {
+      console.error("❌ Email sending failed:", emailError);
+      throw new AppError("Failed to send verification email. Please try again later.", 500);
+    }
+  } catch (error) {
+    next(error);
+  }
+};

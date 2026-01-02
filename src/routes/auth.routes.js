@@ -12,6 +12,7 @@ const {
   enable2FA,
   disable2FA,
   getCurrentUser,
+  resendVerificationEmail,
 } = require("../controllers/auth.controller");
 const { authenticateToken } = require("../middleware/auth");
 const {
@@ -29,6 +30,7 @@ router.post("/login", validateLogin, login);
 router.post("/verify-2fa", validate2FACode, verify2FA);
 router.post("/refresh-token", refreshToken);
 router.post("/forgot-password", forgotPassword);
+router.post("/resend-verification", resendVerificationEmail);
 router.get("/reset-password/:token", (req, res) => {
   const { token } = req.params;
   res.send(`
