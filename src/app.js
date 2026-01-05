@@ -44,6 +44,8 @@ const allowedOrigins = [
   'http://localhost:5174',
   process.env.FRONTEND_URL, // Your Vercel Redux app
   process.env.CONTEXT_FRONTEND_URL, // Your Context API app
+  process.env.ZUSTAND_FRONTEND_URL,  // Your Zustand app
+  process.env.VUE_FRONTEND_URL, //  Your Vue app
 ].filter(Boolean); // Remove undefined values
 
 app.use(
