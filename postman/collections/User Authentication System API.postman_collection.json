@@ -1,0 +1,361 @@
+{
+  "info": {
+    "_postman_id": "8aa5d5f0-ce6f-4ae5-be10-5393c3c8af8d",
+    "name": "User Authentication System API",
+    "description": "Production-grade authentication API with JWT, 2FA, email verfication, and comprehensive security features.\n\nBase URL: [https://nodejsauthsystem-production.up.railway.app/](https://nodejsauthsystem-production.up.railway.app/)\n\nGithub: [https://github.com/Dkingofcode/NodejsAuthSystem](https://github.com/Dkingofcode/NodejsAuthSystem)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "RegisterUser",
+          "id": "d67ebbd2-67cd-427d-a470-40ab765e1b5b",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Register a new user account with email verification.\n\nRequirements:\n\n- Email must be unique and valid\n    \n- Password must be 8+ characters with uppercase, lowercase, number, and special character\n    \n- Username must be unique (optional)\n    \n    Response:\n    \n- Returns user object, accessToken, and refreshToken\n    \n- Sends verification email"
+          },
+          "response": [
+            {
+              "id": "6f05b99b-4dfa-4be0-a31d-99d19ccfea69",
+              "name": "RegisterUser",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "GetUser",
+          "id": "a5c02f9f-b99c-49e9-ae2b-c29fc51bbaa5",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "cb9c3e1f-2906-4847-bdcd-3471eb26f4ae",
+              "name": "GetUser",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "logout",
+          "id": "41efe073-dbd2-4dca-9caf-48ea5786e0d7",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "de30e0f4-9b1a-4c7c-bd5e-b698d2461d71",
+              "name": "logout",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "refreshToken",
+          "id": "810b1513-a1da-415f-8ded-268ba7e91af0",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "d4641c7b-0f04-47cb-8e8f-a8073215cced",
+              "name": "refreshToken",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "id": "2501d736-3359-45c9-a285-19fc85ad0657",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "72415dcf-d49d-4a5b-a62e-535a3c5eef1f",
+              "name": "login",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "serverHealth",
+          "id": "9a0bc244-0917-4306-ba3b-e3f990b3a5b1",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "17d15027-040c-42ba-b792-907e7579c43c",
+              "name": "serverHealth",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "forgot-password",
+          "id": "7892f59d-edae-44f3-84a9-6e8a6bcfd350",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "1b679118-4885-41f9-84f1-7d8fb0c5d2b6",
+              "name": "forgot-password",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "reset-password",
+          "id": "7ca88161-afb6-466e-b9bf-67fa5760ed52",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "b3ab57fe-0a15-4e6d-b6bd-185b06fc9416",
+              "name": "reset-password",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "verify-email",
+          "id": "393ae290-b318-44af-b9eb-fd004fdba2d1",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": "a21e97e3-facc-45b1-b2b1-507ad0e5d00a",
+              "name": "verify-email",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        }
+      ],
+      "id": "d4d93dbe-26e2-4abe-95fc-914c5039f53d"
+    },
+    {
+      "name": "UserManagement",
+      "item": [
+        {
+          "name": "update-profile",
+          "id": "6ad96a6a-b285-4699-864e-74ee809b721c",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "change-password",
+          "id": "72d8b9bb-1f5f-4702-a673-028a3111aa0e",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "update-profile-pic",
+          "id": "aa589e36-5d0f-493d-a1b9-ba07017e9903",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "delete-account",
+          "id": "b390587f-b6e0-46f6-80ab-728a984b8202",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ],
+      "id": "9ccf783d-5c83-4afa-abe5-bc351dacb67a"
+    },
+    {
+      "name": "Two-Factor Authentication",
+      "item": [
+        {
+          "name": "setup-2FA",
+          "id": "2608dc17-c360-4423-b019-74ce88a4a0a1",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "enable-2FA",
+          "id": "f86143e8-febf-4d5e-9927-872c68b5b5fd",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "verify-2FA",
+          "id": "51c6f342-2742-4243-a005-3bddaa7cd7b4",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"david.oladepo.me+one@gmail.com\",\r\n    \"password\": \"SecurePass123!\",\r\n    \"token\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/verify-2fa",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "verify-2fa"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "disable-2FA",
+          "id": "7e1500f4-7635-4a99-99d0-189a520ad477",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ],
+      "id": "d2fa80dc-fe5a-4027-a916-835beaaf3eb5"
+    },
+    {
+      "name": "Session Management",
+      "item": [
+        {
+          "name": "getAllSessions",
+          "id": "dff25eae-2120-4927-a6fb-02502b7f0560",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "revokeSession",
+          "id": "8871a819-ce42-48b4-ab6d-5b91d442e57e",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "revokeAllSessions",
+          "id": "420dc9bc-56c1-432c-9f75-d69af832e66c",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "id": "a98248f8-dffe-4fa5-a0cb-9331566098ac",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ],
+      "id": "351e6d12-82fb-4908-84b5-70305758279b"
+    }
+  ]
+}

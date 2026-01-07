@@ -46,6 +46,7 @@ const allowedOrigins = [
   process.env.CONTEXT_FRONTEND_URL, // Your Context API app
   process.env.ZUSTAND_FRONTEND_URL,  // Your Zustand app
   process.env.VUE_FRONTEND_URL, //  Your Vue app
+  process.env.ANGULAR_FRONTEND_URL, // Your angular app
 ].filter(Boolean); // Remove undefined values
 
 app.use(
