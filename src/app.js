@@ -47,6 +47,7 @@ const allowedOrigins = [
   process.env.ZUSTAND_FRONTEND_URL,  // Your Zustand app
   process.env.VUE_FRONTEND_URL, //  Your Vue app
   process.env.ANGULAR_FRONTEND_URL, // Your angular app
+  process.env.SVELTE_FRONTEND_URL,
 ].filter(Boolean); // Remove undefined values
 
 app.use(
